@@ -1,4 +1,4 @@
-# Spatial Unity SDK Starter Template
+# Week 1 Assesment
 
 
 This a demo with a SINGLEPLAYER gameplay focus where the goal is to collect the 5 food items that spawn within the map.
