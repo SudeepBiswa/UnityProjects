@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5621e5ad1b9084f8bb66de8251cfd5a3, type: 3}
+  m_Name: Space_Feature_Demo
+  m_EditorClassIdentifier: 
+  version: 1
+  sku: 6682c473abd8765d3638cd0e
+  packageName: Island Demo
+  thumbnail: {fileID: 2800000, guid: dc9beb47d2f288e43a34e8bd81ae5fd5, type: 3}
+  savedProjectSettings: {fileID: 11400000, guid: b4d3f3931508d4e3381693ee23f6fe04,
+    type: 2}
+  worldID: rmtw4o06t10a7s9t9kpo2
+  scene: {fileID: 102900000, guid: 2f2ba0a435ff96749a623e718875c5a0, type: 3}
+  csharpAssembly: {fileID: 5897886265953266890, guid: cabfe02df1eed68458f135303e3ec0e7,
+    type: 3}
+  embeddedPackageAssets: []
+  networkPrefabs: []
+  settings:
+    serverInstancingEnabled: 1
+    serverCapacitySetting: 0
+    serverInstanceCapacity: 50
