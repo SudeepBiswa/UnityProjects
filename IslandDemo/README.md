@@ -2,6 +2,15 @@
 
 
 This a demo with a SINGLEPLAYER gameplay focus where the goal is to collect the 5 food items that spawn within the map.
+
+Within this demo the following were accomplished
+   Scene: a small island with trees, rocks, and a beach
+   Player: a contreollable character through keyboard inputs
+   Collectibles: 5 collectibles were created
+   Quest: a quest to collect the collectibles was created
+   UI: There is a UI that displays quest progress
+   Item spawner: A script that spawns the collectibles randomly within the scene
+   Hover aniamtion: A script that animates a up and down hoever aniuamtion using the sin wave.
    
 To access this you can either play test it by clicking "Test Active Scene"
    
