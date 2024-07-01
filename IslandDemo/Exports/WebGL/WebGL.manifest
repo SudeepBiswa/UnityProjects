@@ -2,12 +2,12 @@ ManifestFileVersion: 1
 CompatibilityAssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: feature-demo_0
-      Hash: fbaa38528605b5f7eb03abcb28cc2577
-      CRC: 3328863832
+      Name: island-demo_0
+      Hash: 5618f8d0feba3ac174da8944199bfaee
+      CRC: 1455050610
       Dependencies: {}
     Info_1:
-      Name: feature-demo_csharp-assembly
-      Hash: 8df478f4fe92c2c425c9acc4b6ad15fe
-      CRC: 1139699887
+      Name: island-demo_csharp-assembly
+      Hash: 7ab7ed2bb151645dbdda74840a710610
+      CRC: 4209784713
       Dependencies: {}
