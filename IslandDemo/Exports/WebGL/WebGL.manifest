@@ -3,8 +3,8 @@ CompatibilityAssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: island-demo_0
-      Hash: 5618f8d0feba3ac174da8944199bfaee
-      CRC: 1455050610
+      Hash: 3008c5b76c4c3d77e962cd2fa756253f
+      CRC: 1945427492
       Dependencies: {}
     Info_1:
       Name: island-demo_csharp-assembly
