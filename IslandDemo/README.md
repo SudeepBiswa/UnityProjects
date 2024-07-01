@@ -7,7 +7,7 @@ To access this you can either play test it by clicking "Test Active Scene"
    
 or you can play it on the spatial website itself with the following link.
 
-[//insert link](https://www.spatial.io/s/Island-Demo-6682c5d1bd196996e1095839)
+https://www.spatial.io/s/Island-Demo-6682c5d1bd196996e1095839
    
 The mechanics are simple.
 Just use WASD to walk around and the space bar to jump. 
