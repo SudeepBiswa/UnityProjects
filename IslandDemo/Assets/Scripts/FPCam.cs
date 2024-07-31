@@ -8,7 +8,7 @@ public class FPCam : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        SpatialBridge.cameraService.forceFirstPerson = true;
         
     }
 
@@ -16,9 +16,7 @@ public class FPCam : MonoBehaviour
     void Update()
     {
         
-        //sets the camera's position and roation to the player's
-        transform.position = new Vector3(SpatialBridge.actorService.localActor.avatar.position.x, SpatialBridge.actorService.localActor.avatar.position.y + 1.7f, SpatialBridge.actorService.localActor.avatar.position.z);
-        transform.rotation = SpatialBridge.actorService.localActor.avatar.rotation;
+        
         
     }
 }
