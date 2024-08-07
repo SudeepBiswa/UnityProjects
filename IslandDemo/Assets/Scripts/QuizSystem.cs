@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,6 +29,7 @@ public class QuizSystem : MonoBehaviour
 
     private int index;
     private float score;
+
 
     void Start()
     {
@@ -58,12 +60,15 @@ public class QuizSystem : MonoBehaviour
                         {
                             index++;
                             score += 1f / questions.Length;
+                            
                             state = "TRANSITION";
+                            break;
                         }
                         else
                         {
                             index++;
                             state = "TRANSITION";
+                            break;
                         }
                     }
                 }
@@ -127,38 +132,34 @@ public class QuizSystem : MonoBehaviour
         foreach (Transform sp in transform.Find("Spheres"))
         {
 
-            TextMeshProUGUI answerText = sp.transform.Find("Canvas").transform.Find("answer").GetComponent<TextMeshProUGUI>();
+            
             GameObject activator = sp.transform.Find("Activator").gameObject;
-            activator.SetActive(true);
-            if (answerText == null)
-            {
-                Debug.LogError("Answer TextMeshPro is missing in one of the spheres.");
-                continue;
-            }
-            if (count == randomValue)
-            {
-                answerText.text = answers[index];
-            }
-            else
-            {
-                answerText.text = wrongAnswers[UnityEngine.Random.Range(0, wrongAnswers.Length)];
-            }
+            TextMeshProUGUI answerText = sp.transform.Find("Canvas").transform.Find("answer").GetComponent<TextMeshProUGUI>();
+            activator.SetActive(false);
+            moveSphere(sp.gameObject, "TrDown", false);
+            moveSphere(sp.gameObject, "TrUp", true);
+
+           // activator.SetActive(true);
+            changeAnswers(sp.gameObject, answerText, count, randomValue);
+            
             count++;
+            activator.SetActive(true);
         }
+        
         new WaitForSeconds(1);
         state = "ACTIVE";
     }
     void quizFinished()
     {
         //displays the score once the player gets through all questions
-        float percentageScore = score  * 100;
-        
+        float percentageScore = score * 100;
+
         transform.Find("wall").transform.Find("Canvas").transform.Find("question").GetComponent<TextMeshProUGUI>().text = "Score:\n" + percentageScore.ToString("F2") + "%";
         transform.Find("Spheres").gameObject.SetActive(false);
         GameObject tryAgain = transform.Find("TryAgain").gameObject;
-        
+
         //activeates the try again cube if the score was not a 100%
-        if(!tryAgain.activeSelf && score < 1)
+        if (!tryAgain.activeSelf && score < 1)
         {
             print("activate try again");
             tryAgain.SetActive(true);
@@ -174,10 +175,35 @@ public class QuizSystem : MonoBehaviour
             tryAgain.SetActive(false);
             state = "TRANSITION";
         }
-        else if(score == 1)
+        else if (score == 1)
         {
             //activates the interaction to close/complete the quiz if the player got a 100%
             transform.Find("wall").Find("Interactable").gameObject.SetActive(true);
+        }
+    }
+
+    void moveSphere(GameObject obj, string animation, bool state)
+    {
+        Animator mAnimator = obj.GetComponent<Animator>();
+        if(mAnimator != null)
+        {
+                print("activate anim");
+                mAnimator.SetTrigger(animation);
+        }
+    }
+    void changeAnswers(GameObject obj, TextMeshProUGUI answerText, int count, int randomValue)
+    {
+        if (answerText == null)
+        {
+            Debug.LogError("Answer TextMeshPro is missing in one of the spheres.");
+        }
+        if (count == randomValue)
+        {
+            answerText.text = answers[index];
+        }
+        else
+        {
+            answerText.text = wrongAnswers[UnityEngine.Random.Range(0, wrongAnswers.Length)];
         }
     }
 }

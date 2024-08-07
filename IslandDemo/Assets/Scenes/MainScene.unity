@@ -925,6 +925,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CoffeCup
       objectReference: {fileID: 0}
+    - target: {fileID: 6546105948780360262, guid: 1542aca21c63c204e933b71cd6ed27eb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1542aca21c63c204e933b71cd6ed27eb, type: 3}
 --- !u!1 &179435032
