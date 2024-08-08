@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using SpatialSys.UnitySDK;
-using System;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class InteractBillboard : MonoBehaviour
 {
@@ -33,9 +30,9 @@ public class InteractBillboard : MonoBehaviour
             //call the interact function and set activator to inactive
             Interact();
             activator.SetActive(!activator.activeSelf);
-            
+
         }
-        else if(!cam.activeSelf)
+        else if (!cam.activeSelf)
         {
             //if the cam is inactive then set the player's walk and run speed and jump height to the original saved speed and jump height
             SpatialBridge.actorService.localActor.avatar.walkSpeed = walk;

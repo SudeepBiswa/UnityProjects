@@ -1,11 +1,6 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class QuizSystem : MonoBehaviour
 {
@@ -30,19 +25,21 @@ public class QuizSystem : MonoBehaviour
     private int index;
     private float score;
 
-
+    private bool answered;
+    private bool isCorrect;
     void Start()
     {
         index = 0;
         state = "FIRST";
-
+        answered = false;
+        isCorrect = false;
         //get the the x size of the wall and sphere to be able to give the spheres an even spacing
         Renderer wallRenderer = wall.GetComponent<Renderer>();
         wallWidth = wallRenderer.bounds.size.x;
         Renderer sphereRenderer = sphere.GetComponent<Renderer>();
         sphereDiameter = sphereRenderer.bounds.size.x;
     }
-    void Update()
+    void FixedUpdate()
     {
         if (wall.activeSelf)
         {
@@ -52,23 +49,27 @@ public class QuizSystem : MonoBehaviour
                 //if the answer was correct and increase the index change state to transition. if the answer was not correct then dont reward player.
                 foreach (Transform sp in transform.Find("Spheres"))
                 {
+                    Vector3 targetPos = new Vector3(sp.transform.position.x, wall.transform.position.y - 1f, sp.transform.position.z);
                     GameObject activator = sp.transform.Find("Activator").gameObject;
                     TextMeshProUGUI answerText = sp.transform.Find("Canvas").transform.Find("answer").GetComponent<TextMeshProUGUI>();
                     if (!activator.activeSelf)
                     {
                         if (answerText.text.Equals(answers[index]))
                         {
+
+
                             index++;
                             score += 1f / questions.Length;
-                            
                             state = "TRANSITION";
                             break;
+
                         }
                         else
                         {
                             index++;
                             state = "TRANSITION";
                             break;
+
                         }
                     }
                 }
@@ -79,7 +80,7 @@ public class QuizSystem : MonoBehaviour
             }
             else if (state.Equals("TRANSITION"))
             {
-                TransitionToNextQuestion();
+                StartCoroutine(TransitionToNextQuestion());
             }
             else if (state.Equals("FIRST"))
             {
@@ -122,31 +123,39 @@ public class QuizSystem : MonoBehaviour
         }
     }
 
-    void TransitionToNextQuestion()
+    IEnumerator TransitionToNextQuestion()
     {
+
         //displays the question and chooses a random orb to hold the correct answer and assigns random wrong answers to the remaining orbs. then proceeds to the active state
         int count = 0;
         int randomValue = UnityEngine.Random.Range(0, answersPerQuestion);
-        DisplayQuestion();
 
+
+        turnActivator(false);
+
+        DisplayQuestion();
         foreach (Transform sp in transform.Find("Spheres"))
         {
 
-            
             GameObject activator = sp.transform.Find("Activator").gameObject;
             TextMeshProUGUI answerText = sp.transform.Find("Canvas").transform.Find("answer").GetComponent<TextMeshProUGUI>();
-            activator.SetActive(false);
-            moveSphere(sp.gameObject, "TrDown", false);
-            moveSphere(sp.gameObject, "TrUp", true);
 
-           // activator.SetActive(true);
+            Vector3 targetPos = new Vector3(sp.transform.position.x, wall.transform.position.y - 1.1f, sp.transform.position.z);
+            animateSphere(sp.gameObject, 0.1f, targetPos);
+
+            targetPos = new Vector3(sp.transform.position.x, wall.transform.position.y - 0.7f, sp.transform.position.z);
+            animateSphere(sp.gameObject, 0.1f, targetPos);
+
+            //moveSphere(sp.gameObject, "TrDown", false);
+            //moveSphere(sp.gameObject, "TrUp", true);
+
             changeAnswers(sp.gameObject, answerText, count, randomValue);
-            
             count++;
-            activator.SetActive(true);
+
+            
         }
-        
-        new WaitForSeconds(1);
+        yield return new WaitForSeconds(1f);
+        turnActivator(true);
         state = "ACTIVE";
     }
     void quizFinished()
@@ -185,10 +194,10 @@ public class QuizSystem : MonoBehaviour
     void moveSphere(GameObject obj, string animation, bool state)
     {
         Animator mAnimator = obj.GetComponent<Animator>();
-        if(mAnimator != null)
+        if (mAnimator != null)
         {
-                print("activate anim");
-                mAnimator.SetTrigger(animation);
+            print("activate anim");
+            mAnimator.SetTrigger(animation);
         }
     }
     void changeAnswers(GameObject obj, TextMeshProUGUI answerText, int count, int randomValue)
@@ -205,5 +214,20 @@ public class QuizSystem : MonoBehaviour
         {
             answerText.text = wrongAnswers[UnityEngine.Random.Range(0, wrongAnswers.Length)];
         }
+    }
+    void turnActivator(bool state)
+    {
+        foreach (Transform sp in transform.Find("Spheres"))
+        {
+            GameObject Interactable = sp.transform.Find("Interactable").gameObject;
+            GameObject activator = sp.transform.Find("Activator").gameObject;
+            Interactable.SetActive(state);
+            activator.SetActive(true);
+        }
+    }
+
+    void animateSphere(GameObject obj, float speed, Vector3 targetPos)
+    {
+        obj.transform.position = Vector3.MoveTowards(obj.transform.position, targetPos, speed * Time.deltaTime);
     }
 }
